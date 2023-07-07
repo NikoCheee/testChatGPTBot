@@ -24,7 +24,7 @@ async def start_command_handler(message: Message):
 
 
 @dp.message_handler()
-async def echo_handler(message: Message):
+async def gpt_handler(message: Message):
     text = message.text
     print(f"{datetime.now().strftime('%H:%M:%S')} {message.from_user.full_name} зробив запрос у чат жпт")
 
