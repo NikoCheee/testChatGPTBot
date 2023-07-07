@@ -28,19 +28,29 @@ async def echo_handler(message: Message):
     text = message.text
     print(f"{datetime.now().strftime('%H:%M:%S')} {message.from_user.full_name} зробив запрос у чат жпт")
 
+    answer = await create_answer(text)
+
+    await message.answer(answer)
+    print(f"{datetime.now().strftime('%H:%M:%S')} {message.from_user.full_name} отримав відповідь")
+
+
+async def create_answer(text):  # TODO системне повідомлення
+    answer = await __get_gpt_completion(text=text)
+    return answer
+
+
+async def __get_gpt_completion(text):  # TODO системне повідомлення
     completion = await openai.ChatCompletion.acreate(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are a helpful asistant."},  # налаштувати
+            {"role": "system", "content": "You are a helpful assistant."},  # TODO налаштувати
             {"role": "user", "content": f"{text}"}
         ]
     )
-    print(f"{datetime.now().strftime('%H:%M:%S')} запрос для {message.from_user.full_name} оброблено")
 
+    print(f"{datetime.now().strftime('%H:%M:%S')} запрос для '{text[:15]}' оброблено")
     answer = completion.choices[0].message
-
-    await message.answer(answer['content'])
-    print(f"{datetime.now().strftime('%H:%M:%S')} {message.from_user.full_name} отримав відповідь")
+    return answer['content']
 
 
 if __name__ == '__main__':
