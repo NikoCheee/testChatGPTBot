@@ -1,4 +1,5 @@
-from config import BOT_TOKEN, OpenAIToken, my_api
+from config import BOT_TOKEN
+from openai_utils import create_answer
 from aiogram import Bot, types
 from aiogram.types import Message
 from aiogram.dispatcher import Dispatcher
@@ -6,11 +7,9 @@ from aiogram.utils import executor
 
 import asyncio
 import logging
-import openai
 from datetime import datetime
 
 token = BOT_TOKEN
-openai.api_key = my_api
 
 bot = Bot(token)
 dp = Dispatcher(bot)
@@ -51,26 +50,6 @@ async def waiting(msg: Message):
     await asyncio.sleep(12)
     await bot.send_message(msg.from_user.id, 'І ще трохи...')
     print(f'{datetime.now().strftime("%H:%M:%S")}')
-
-
-async def create_answer(text):  # TODO системне повідомлення
-    answer = await __get_gpt_completion(text=text)
-    return answer
-
-
-async def __get_gpt_completion(text):  # TODO системне повідомлення
-    print(f'{datetime.now().strftime("%H:%M:%S")} зараз буде запускатись гет_гпт_комп')
-    completion = await openai.ChatCompletion.acreate(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."},  # TODO налаштувати
-            {"role": "user", "content": f"{text}"}
-        ]
-    )
-
-    print(f"{datetime.now().strftime('%H:%M:%S')} запрос для '{text[:15]}' оброблено")
-    answer = completion.choices[0].message
-    return answer['content']
 
 
 if __name__ == '__main__':
