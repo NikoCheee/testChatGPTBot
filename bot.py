@@ -29,19 +29,28 @@ async def gpt_handler(message: Message):
     text = message.text
     print(f"{datetime.now().strftime('%H:%M:%S')} {message.from_user.full_name} зробив запрос у чат жпт")
 
-    # answer = await create_answer(text)
-    answer = await asyncio.gather(create_answer(text), waiting())
+    answer_task = asyncio.create_task(create_answer(text))
+    wait_task = asyncio.create_task(waiting(message))
 
-    await message.answer(answer[0])
+    answer = await answer_task
+    if answer_task.done():
+        wait_task.cancel()
+        await message.answer(answer)
+    await wait_task
     print(f"{datetime.now().strftime('%H:%M:%S')} {message.from_user.full_name} отримав відповідь")
 
 
 @dp.message_handler()
-async def waiting():  # send messages
+async def waiting(msg: Message):
     print(f"{datetime.now().strftime('%H:%M:%S')} очікуюча функція викликалась")
-    print(f"{datetime.now().strftime('%H:%M:%S')} Зачекайте трохи...")
-    await asyncio.sleep(5)
-    print(f'{datetime.now().strftime("%H:%M:%S")} Зачекайте ще трохи...')
+    await asyncio.sleep(4)
+    await bot.send_message(msg.from_user.id, 'Хвилинку...')
+    print(f"{datetime.now().strftime('%H:%M:%S')}")
+    await asyncio.sleep(8)
+    await bot.send_message(msg.from_user.id, 'Зачекайте ще трохи...')
+    await asyncio.sleep(12)
+    await bot.send_message(msg.from_user.id, 'І ще трохи...')
+    print(f'{datetime.now().strftime("%H:%M:%S")}')
 
 
 async def create_answer(text):  # TODO системне повідомлення
