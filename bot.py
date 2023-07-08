@@ -43,6 +43,7 @@ async def gpt_handler(message: Message):
         print(f"{datetime.now().strftime('%H:%M:%S')} {message.from_user.full_name} отримав відповідь")
     except Exception as e:
         logging.error(e)
+        await message.answer("На жаль, під час виконання запиту сталася помилка. Спробуйте ще раз пізніше.")
 
 
 @dp.message_handler()
