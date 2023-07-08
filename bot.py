@@ -4,7 +4,6 @@ from aiogram import Bot, types
 from aiogram.types import Message
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
-from aiogram.utils.markdown import italic
 
 import asyncio
 import logging
@@ -12,7 +11,7 @@ from datetime import datetime
 
 token = BOT_TOKEN
 
-bot = Bot(token)
+bot = Bot(token, parse_mode='HTML')
 dp = Dispatcher(bot)
 print("Бот запущений")
 
@@ -44,7 +43,7 @@ async def gpt_handler(message: Message):
 async def waiting(msg: Message):
     print(f"{datetime.now().strftime('%H:%M:%S')} очікуюча функція викликалась")
     await asyncio.sleep(4)
-    await bot.send_message(msg.from_user.id, 'Хвилинку...')
+    await bot.send_message(msg.from_user.id, '<i>Хвилинку...</i>')
     print(f"{datetime.now().strftime('%H:%M:%S')}")
     await asyncio.sleep(8)
     await bot.send_message(msg.from_user.id, 'Зачекайте ще трохи...')
