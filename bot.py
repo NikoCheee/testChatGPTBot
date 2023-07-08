@@ -16,6 +16,7 @@ bot = Bot(token)
 dp = Dispatcher(bot)
 print("Бот запущений")
 
+
 @dp.message_handler(commands=['start'])
 async def start_command_handler(message: Message):
     print(f"{datetime.now().strftime('%H:%M:%S')} {message.from_user.full_name} написав старт")
