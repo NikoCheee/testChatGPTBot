@@ -4,6 +4,7 @@ from aiogram import Bot, types
 from aiogram.types import Message
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
+from aiogram.utils.markdown import italic
 
 import asyncio
 import logging
