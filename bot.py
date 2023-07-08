@@ -60,5 +60,8 @@ async def waiting(msg: Message):
 
 
 if __name__ == '__main__':
-    # executor.start_polling(dp)
-    asyncio.run(executor.start_polling(dp))
+    try:
+        # executor.start_polling(dp)
+        asyncio.run(executor.start_polling(dp))
+    except Exception as e:
+        logging.error(e)
