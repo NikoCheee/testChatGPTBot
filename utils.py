@@ -12,5 +12,5 @@ waiting_phrases = [
 ]
 
 
-def get_random_waiting_phrase():
+async def get_random_waiting_phrase():
     return f'<i>{random.choice(waiting_phrases)}</i>'
