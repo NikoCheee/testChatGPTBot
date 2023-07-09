@@ -1,5 +1,6 @@
 from config import BOT_TOKEN
 from openai_utils import create_answer
+from utils import get_random_waiting_phrase
 from aiogram import Bot, types
 from aiogram.types import Message
 from aiogram.dispatcher import Dispatcher
@@ -16,7 +17,8 @@ dp = Dispatcher(bot)
 print("Бот запущений")
 
 # Configure logging
-logging.basicConfig(filename='log.txt', encoding='UTF-8', format="%(asctime)s %(funcName)s: %(message)s")
+logging.basicConfig(filename='log.txt', encoding='UTF-8',
+                    format="%(asctime)s %(funcName)s: %(message)s")
 
 
 @dp.message_handler(commands=['start'])
@@ -42,7 +44,7 @@ async def gpt_handler(message: Message):
         if answer_task.exception():
             wait_task.cancel()
             await message.answer(answer)
-            
+
         await wait_task
         print(f"{datetime.now().strftime('%H:%M:%S')} {message.from_user.full_name} отримав відповідь")
     except Exception as e:
@@ -55,13 +57,9 @@ async def waiting(msg: Message):
     print(f"{datetime.now().strftime('%H:%M:%S')} очікуюча функція викликалась")
     await asyncio.sleep(4)
     while True:
-        await bot.send_message(msg.from_user.id, '<i>Хвилинку...</i>')
-        print(f"{datetime.now().strftime('%H:%M:%S')}")
-        await asyncio.sleep(8)
-        await bot.send_message(msg.from_user.id, 'Зачекайте ще трохи...')
-        await asyncio.sleep(12)
-        await bot.send_message(msg.from_user.id, 'І ще трохи...')
-        print(f'{datetime.now().strftime("%H:%M:%S")}')
+        test = await get_random_waiting_phrase()
+        await bot.send_message(msg.from_user.id, f'{test}')
+        await asyncio.sleep(10)
 
 
 if __name__ == '__main__':
