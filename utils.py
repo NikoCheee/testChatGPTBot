@@ -7,10 +7,10 @@ waiting_phrases = [
     'Зараз, почекайте будь ласка...',
     'Я все ще думаю...',
     'Скоро буде відповідь...',
-    'За чекайте ще трохи...',
+    'Зачекайте ще трохи...',
     'І ще трохи...',
 ]
 
 
 def get_random_waiting_phrase():
-    pass
+    return f'<i>{random.choice(waiting_phrases)}</i>'
