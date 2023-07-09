@@ -16,7 +16,7 @@ dp = Dispatcher(bot)
 print("Бот запущений")
 
 # Configure logging
-logging.basicConfig(filename='log.txt', encoding='UTF-8')
+logging.basicConfig(filename='log.txt', encoding='UTF-8', format="%(asctime)s %(funcName)s: %(message)s")
 
 
 @dp.message_handler(commands=['start'])
