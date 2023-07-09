@@ -50,13 +50,14 @@ async def gpt_handler(message: Message):
 async def waiting(msg: Message):
     print(f"{datetime.now().strftime('%H:%M:%S')} очікуюча функція викликалась")
     await asyncio.sleep(4)
-    await bot.send_message(msg.from_user.id, '<i>Хвилинку...</i>')
-    print(f"{datetime.now().strftime('%H:%M:%S')}")
-    await asyncio.sleep(8)
-    await bot.send_message(msg.from_user.id, 'Зачекайте ще трохи...')
-    await asyncio.sleep(12)
-    await bot.send_message(msg.from_user.id, 'І ще трохи...')
-    print(f'{datetime.now().strftime("%H:%M:%S")}')
+    while True:
+        await bot.send_message(msg.from_user.id, '<i>Хвилинку...</i>')
+        print(f"{datetime.now().strftime('%H:%M:%S')}")
+        await asyncio.sleep(8)
+        await bot.send_message(msg.from_user.id, 'Зачекайте ще трохи...')
+        await asyncio.sleep(12)
+        await bot.send_message(msg.from_user.id, 'І ще трохи...')
+        print(f'{datetime.now().strftime("%H:%M:%S")}')
 
 
 if __name__ == '__main__':
