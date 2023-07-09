@@ -23,7 +23,6 @@ logging.basicConfig(filename='log.txt', encoding='UTF-8',
 
 @dp.message_handler(commands=['start'])
 async def start_command_handler(message: Message):
-    print(f"{datetime.now().strftime('%H:%M:%S')} {message.from_user.full_name} написав старт")
     await message.answer(f'Привіт, {message.from_user.full_name}! Я бот, через якого можна спитати '
                          f'що завгодно у чата GPT. Тож питай, не соромся!')
 
@@ -32,7 +31,6 @@ async def start_command_handler(message: Message):
 async def gpt_handler(message: Message):
     try:
         text = message.text
-        print(f"{datetime.now().strftime('%H:%M:%S')} {message.from_user.full_name} зробив запрос у чат жпт")
 
         answer_task = asyncio.create_task(create_answer(text))
         wait_task = asyncio.create_task(waiting(message))
@@ -41,7 +39,6 @@ async def gpt_handler(message: Message):
         if answer_task.done():
             wait_task.cancel()
             await message.answer(answer)
-            print(f"{datetime.now().strftime('%H:%M:%S')} {message.from_user.full_name} отримав відповідь")
         await wait_task
 
     except Exception as e:
@@ -51,7 +48,6 @@ async def gpt_handler(message: Message):
 
 @dp.message_handler()
 async def waiting(msg: Message):
-    print(f"{datetime.now().strftime('%H:%M:%S')} очікуюча функція викликалась")
     await asyncio.sleep(4)
     while True:
         test = await get_random_waiting_phrase()
@@ -61,7 +57,6 @@ async def waiting(msg: Message):
 
 if __name__ == '__main__':
     try:
-        # executor.start_polling(dp)
         asyncio.run(executor.start_polling(dp))
     except Exception as e:
         logging.error(e)
