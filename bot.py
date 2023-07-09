@@ -1,4 +1,4 @@
-from config import BOT_TOKEN
+from config import BOT_TOKEN, proxy_url
 from openai_utils import create_answer
 from utils import get_random_waiting_phrase
 from aiogram import Bot, types
@@ -12,7 +12,7 @@ from datetime import datetime
 
 token = BOT_TOKEN
 
-bot = Bot(token, parse_mode='HTML')
+bot = Bot(token, parse_mode='HTML', proxy=proxy_url)
 dp = Dispatcher(bot)
 print("Бот запущений")
 
