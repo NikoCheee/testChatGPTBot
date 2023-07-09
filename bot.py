@@ -41,12 +41,9 @@ async def gpt_handler(message: Message):
         if answer_task.done():
             wait_task.cancel()
             await message.answer(answer)
-        if answer_task.exception():
-            wait_task.cancel()
-            await message.answer(answer)
-
+            print(f"{datetime.now().strftime('%H:%M:%S')} {message.from_user.full_name} отримав відповідь")
         await wait_task
-        print(f"{datetime.now().strftime('%H:%M:%S')} {message.from_user.full_name} отримав відповідь")
+
     except Exception as e:
         logging.error(e)
         await message.answer("На жаль, під час виконання запиту сталася помилка. Спробуйте ще раз пізніше.")

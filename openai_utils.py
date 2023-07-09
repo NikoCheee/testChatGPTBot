@@ -24,4 +24,3 @@ async def __get_gpt_completion(text):  # TODO системне повідомл�
         return answer['content']
     except Exception as e:
         logging.error(e)
-        return "На жаль, під час виконання запиту сталася помилка. Спробуйте ще раз пізніше."
