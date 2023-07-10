@@ -29,7 +29,7 @@ async def start_command_handler(message: Message):
 @dp.message_handler(commands=['help'])
 async def help_command_handler(message: Message):
     await message.answer('Я чат бот, побудований на бібліотеці aiogram, який звертається до OpenAI API.\n'
-                         'Моя модель "gpt-3.5-turbo", а моя сутність вкладається у "You are a helpful assistant".'
+                         'Моя модель "gpt-3.5-turbo", а моя сутність вкладається у "You are a helpful assistant". '
                          'На жаль поки це змінити неможливо, але у майбутньому... Так що приємного користування!')
 
 
