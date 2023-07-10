@@ -1,14 +1,13 @@
-from config import BOT_TOKEN, proxy_url
+from config import BOT_TOKEN
 from openai_utils import create_answer
 from utils import get_random_waiting_phrase
-from aiogram import Bot, types
+from aiogram import Bot
 from aiogram.types import Message
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 
 import asyncio
 import logging
-from datetime import datetime
 
 token = BOT_TOKEN
 
