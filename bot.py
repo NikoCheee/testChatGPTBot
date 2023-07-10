@@ -47,12 +47,12 @@ async def gpt_handler(message: Message):
 
 
 @dp.message_handler()
-async def waiting(msg: Message):
+async def waiting(msg: Message, delay=10):
     await asyncio.sleep(4)
     while True:
         test = await get_random_waiting_phrase()
         await bot.send_message(msg.from_user.id, f'{test}')
-        await asyncio.sleep(10)
+        await asyncio.sleep(delay)
 
 
 if __name__ == '__main__':
