@@ -49,6 +49,8 @@ async def gpt_handler(message: Message):
 
     except Exception as e:
         logging.error(e)
+        # answer_task.cancel()
+        wait_task.cancel()
         await message.answer("На жаль, під час виконання запиту сталася помилка. Спробуйте ще раз пізніше.")
 
 
