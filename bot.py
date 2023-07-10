@@ -48,6 +48,14 @@ async def gpt_handler(message: Message):
 
 @dp.message_handler()
 async def waiting(msg: Message, first_wait=4, delay=10):
+    """
+    Function for sending waiting phrases while openai api processing request.
+    Random phrases generates from outer function get_random_waiting_phrase().
+    :param msg: message to get chat id, type of tg Message
+    :param first_wait: waiting time for first waiting phrase, default=4
+    :param delay: waiting time between other waiting phrases, default=10
+    :return:
+    """
     await asyncio.sleep(first_wait)
     while True:
         test = await get_random_waiting_phrase()
