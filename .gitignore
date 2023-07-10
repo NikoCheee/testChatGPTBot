@@ -3,3 +3,4 @@ ttot_env
 .idea
 config.py
 log.txt
+/__pycache__/
