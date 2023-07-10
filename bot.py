@@ -12,7 +12,7 @@ from datetime import datetime
 
 token = BOT_TOKEN
 
-bot = Bot(token, parse_mode='HTML', proxy=proxy_url)
+bot = Bot(token, parse_mode='HTML')
 dp = Dispatcher(bot)
 print("Бот запущений")
 
